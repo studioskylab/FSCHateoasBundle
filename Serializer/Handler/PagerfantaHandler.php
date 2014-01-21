@@ -119,7 +119,7 @@ class PagerfantaHandler implements SubscribingHandlerInterface
             'page' => $pager->getCurrentPage(),
             'limit' => $pager->getMaxPerPage(),
             'total' => $pager->getNbResults(),
-            'results' => $visitor->getNavigator()->accept($pager->getCurrentPageResults(), $resultsType, $context),
+            '_embedded' => array($pager->getRel() => $visitor->getNavigator()->accept($pager->getCurrentPageResults(), $resultsType, $context)),
         );
 
         if (null !== ($links = $this->linkEventSubscriber->getOnPostSerializeData(new ObjectEvent($context, $pager, $type)))) {
